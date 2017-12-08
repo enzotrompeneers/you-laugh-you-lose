@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 var async = require('async');
-/* const vision = require('@google-cloud/vision');
+const vision = require('@google-cloud/vision');
 
 var gcloud = require('google-cloud')({
     projectId: process.env.PROJECT_ID,
@@ -19,16 +19,10 @@ client.faceDetection(fileName)
 
     console.log('Faces:');
     faces.forEach((face, i) => {
-
       console.log(`  Face #${i + 1}:`);
       console.log(`    Joy: ${face.joyLikelihood}`);
-      console.log(`    Anger: ${face.angerLikelihood}`);
-      console.log(`    Sorrow: ${face.sorrowLikelihood}`);
-      console.log(`    Surprise: ${face.surpriseLikelihood}`);
     });
   })
   .catch((err) => {
     console.error('ERROR:', err);
-  }); */
-
-
+  });
