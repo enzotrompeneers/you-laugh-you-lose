@@ -22,7 +22,8 @@ jQuery(function ($) {
             App.room.gameInit(data);
         },
         beginNewGame : function(data) {
-            //App[App.myRole].gameCountdown(data);
+            console.log(data);
+            App[App.myRole].beginGame(data);
         },
         playerJoinedRoom : function(data) {
 
@@ -98,9 +99,12 @@ jQuery(function ($) {
                 $('#playersWaiting')
                     .append('<p/>')
                     .text('Player ' + data.playerName + ' joined the game.');
-                App.room.players.push(data);
-                App.room.numPlayersInRoom += 1;
-                console.log(App.room.numPlayersInRoom);
+                if(App.room.numPlayersInRoom !== 2){
+                    App.room.players.push(data);
+                    App.room.numPlayersInRoom += 1;
+                    console.log(App.room.numPlayersInRoom);
+                }
+
                 if (App.room.numPlayersInRoom === 2) {
                     console.log('players connected', App.room.players);
                     IO.socket.emit('hostRoomFull',App.gameId);
@@ -135,6 +139,11 @@ jQuery(function ($) {
                 // Set the appropriate properties for the current player.
                 App.myRole = 'player';
                 App.player.myName = data.playerName;
+            },
+            beginGame : function(hostData) {
+                App.player.hostSocketId = hostData.mySocketId;
+                $('#gameArea')
+                    .html('<div class="gameOver">Get Ready!</div>');
             },
             updateWaitingScreen : function(data) {
                 console.log(IO.socket.id);
