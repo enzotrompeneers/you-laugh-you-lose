@@ -29,6 +29,9 @@
     function viewVideo(video, context) {
         context.drawImage(video, 0, 0, context.width, context.height);
         socket.emit('stream', canvas.toDataURL('image/webp'));
+        // socket.get('msg', function(data) {
+        //     console.log(data);
+        // });
     }
 
     navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
