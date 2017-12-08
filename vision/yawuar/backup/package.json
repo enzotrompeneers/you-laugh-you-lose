@@ -1,0 +1,19 @@
+{
+  "name": "adridude",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/vision": "^0.13.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "google-cloud": "^0.57.0",
+    "log": "^1.4.0",
+    "socket.io": "^2.0.4"
+  }
+}
