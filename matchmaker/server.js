@@ -20,20 +20,46 @@ exports.initGame = function(sio, socket){
    // gameSocket.on('hostNextRound', hostNextRound);
 
     // Player Events
-   // gameSocket.on('playerJoinGame', playerJoinGame);
+   gameSocket.on('playerJoinRoom', playerJoinRoom);
 }
 function hostCreateNewGame() {
     // Create a unique Socket.IO Room
     var thisGameId = ( Math.random() * 100000 ) | 0;
-    console.log(thisGameId);
     // Return the Room ID (gameId) and the socket ID (mySocketId) to the browser client
     this.emit('newGameCreated', {gameId: thisGameId, mySocketId: this.id});
 
     // Join the Room and wait for the players
-    this.join(thisGameId.toString());
+    gameSocket.join(thisGameId.toString());
 };
 
 function hostStartGame(gameId) {
     console.log('Game Started.');
-    sendWord(0,gameId);
+
 };
+
+function playerJoinRoom(data) {
+    console.log('Player ' + data.playerName + ' attempting to join game: ' + data.gameId );
+
+    var sock = this;
+
+    // Look up the room ID in the Socket.IO manager object.
+    var room = gameSocket.rooms["/" + data.gameId];
+    console.log(gameSocket.rooms);
+    // If the room exists...
+    if( room != undefined ){
+        // attach the socket id to the data object.
+        data.mySocketId = sock.id;
+
+        // Join the room
+        sock.join(data.gameId);
+
+        console.log('Player ' + data.playerName + ' joining game: ' + data.gameId );
+
+        // Emit an event notifying the clients that the player has joined the room.
+        io.sockets.in(data.gameId).emit('playerJoinedRoom', data);
+
+    } else {
+        // Otherwise, send an error message back to the player.
+        console.log('room doesnt exist');
+    }
+}

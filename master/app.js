@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -5,12 +6,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-
-var io = require('socket.io')(app);
-
 var app = express();
+
+var matchmakingController = require('./controllers/matchmakingController');
+var youtubeController = require('./controllers/youtubeController');
+var videoController = require('./controllers/videoController');
+var drawController = require('./controllers/drawController');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,12 +25,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+/* GET home page. */
+app.get('/', function(req, res, next) {
+  /* videoController.checkIfLaughing('./images/people.jpg', function() {}); */
+  res.render('index', { title: 'Express' });
+});
 
-io.on('connection', function(socket) {
-  socket.on('draw', function(data) {
-    socket.broadcast.emit('draw', data);
+/* GET searchterms (ajax request) */
+app.get('/search/:searchterm', function(req, res, next) {
+  youtubeController.search(req.params.searchterm, function(result) {
+    res.json(result);
   });
 });
 
@@ -48,6 +53,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
+  res.render('error');
 });
 
 module.exports = app;
