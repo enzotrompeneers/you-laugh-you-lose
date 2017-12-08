@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "you-laugh-you-lose-188416",
+  "private_key_id": "daa1f93d2d75251bb150e2df6f4de83edcaa3b0e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDeZ7jMExzAqUUU\n4wuDgZphEJ9e9D0ahkAf34etiIBM6Rlj86f9URQbzgF6dVU7hmsN9WZI1yVm1zt9\nmwPL/gBgfCO1OF2TDOQCfI4eHuzZPMMzf5lB/EO/y2P7bqMR0vPJ2pFMpso8Kbmf\nJCvuBnvtOwN95CzloFDe+WFX+62j2KPMhTKU5Qj0RSrVS0MjfZvf3xFRteNPPN0A\nYC5a113w6+uKUsETVLLyW/QiyzP43kFJObqi5sjv1iiog1PKKe5gW4e5Qbl/TlSt\nCAwVHtKm9C1dpELKYn8mPECQAsLCGzaYtsPYG387CYsMqwF7BqUIJedici1bWVPf\naqgXjYcnAgMBAAECggEAakgp1Qg7IMyjUShxC56nPkR5zKAuBRtr0G97QI/vNBHe\nyteZC2KwF9t59GHW4dPKHAkOILgDzSIE8XDfPyA6YOFiFQuDGC88VP3d0oIX0HaL\nl/Qdsp1RaPnS5UhJUE69ptQ2xGkeUuLjrCvWfHCHz2X4tLQSSoeyreOBw9Bnedi8\n0DUYfk1nUapuT+oMalCgAJ1u36AVnTR2Vb4eD/WSSK9pEGYJG3bcMU6s/hJCUvPN\nkpmwTpNsKMgmRNMCJJFuvLNwowzhQjzq9Mq9jBVLxVIG/YGNeZapRc9LYKPA+b7t\n8Anp4/cVe4f8dfhP9nsjnzelJoENyR1qJmrlm0iQSQKBgQDzWOagBMh/MhBfMpcb\nkx8hI6eCytrWvsFE81v6eb1qSgCtvablkyu7Qxc6AO6etzfsReURq8O/4+DaTY0+\nkBV2UpRFgaGyBplmMW7fPaJD6tMhLVO3WYpKSnDAKjxtNRA/TslOvNsCnnQ/yBqo\nYCuhv+mfEqIi5zHnFHZWfsd6mQKBgQDp+BGkOlunPv1fC0zouxtfKHJMxRftfP22\ndwW7mNhxU5H+pvWZkHvjYgha3YtxoMMnWF8pDyu+LsXw4Xzwb0jRP5G/lEUgdGKk\nOUB1heXye3UYVtfCsT4yFW4Jnc2L/56mUyMLEKiTcexDIYHPnlfNNje1zF0S9zUa\nJWE4yoHnvwKBgByWXgmAZlli9T9pvwyzPN30xVH9KLY/lI7YE/8Z3CGnber7M6cW\nofWOzSS4RVAJ8BzmnSF1Tzq0t46Nu8EUxiCvVNHRh8BVPCIgPoklQXG/HWxxWbtZ\nXoCZvCMnExA1QqJdTBLe5s+o87kmddM/8QBAfl58nuWAyYD/C2Pf4ulJAoGAa1Yl\nMcScG6QoNRxIElUUf5lcpp+dFJTNCJKeDKxYT9VZGwyZi/PfAjgNQTJ2MJDiNwCx\n13JgTQXERXgNC3jiXSzevpdVB0idoF2rlr7w+UduNtZQcb9Cm1N9geflTp7ct81Y\nPFFOJSaUj0+l8AvimACRmlPBN1w1/mK7sYQmCJ0CgYABkIN5rm3lYa769j0UXFTn\n+X+GncuVIMgvRcvR8I7eK60JStkMkcysiT/v7yqAQd753Y7aFcU60kKM3jeYPIlE\nodn1zlYtntONdIzXeV+GX/JDNhqyMOBayYklZst/qbo8o+Q8LsWZX4hnwc2D2ZVY\njaPH5z59+a6e1HEFVXJztQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "test-account@you-laugh-you-lose-188416.iam.gserviceaccount.com",
+  "client_id": "100799882648525813066",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/test-account%40you-laugh-you-lose-188416.iam.gserviceaccount.com"
+}
