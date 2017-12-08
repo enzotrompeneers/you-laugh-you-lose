@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /* GET home page. */
 app.get('/', function(req, res, next) {
+  /* videoController.checkIfLaughing('./images/people.jpg', function() {}); */
   res.render('index', { title: 'Express' });
 });
 
