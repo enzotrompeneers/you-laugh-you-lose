@@ -1,10 +1,26 @@
-var vision = require('@google-cloud/vision');
+require('dotenv').config();
 
-// Authenticating on a global basis.
-var projectId = 'you-laugh-you-lose-188416';
+var projectId = process.env.PROJECT_ID;
 
 var gcloud = require('google-cloud')({
     projectId: projectId,
-    keyFilename: './key/You Laugh You Lose-daa1f93d2d75',
-    key: 'AIzaSyCC1u7i3UJkr0jeIDDseBxR_ggWdzaYTuc'
+    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+    key: process.env.GOOGLE_API_KEY
 });
+
+
+const vision = require('@google-cloud/vision');
+const client = new vision.ImageAnnotatorClient();
+
+// Performs label detection on the image file
+client
+ .labelDetection('./images/people.jpg')
+ .then(results => {
+   const labels = results[0].labelAnnotations;
+
+   console.log('Labels:');
+   labels.forEach(label => console.log(label.description));
+ })
+ .catch(err => {
+   console.error('ERROR:', err);
+ });
