@@ -20,7 +20,6 @@
 
 <body>
 
-
 <!-- Sidebar -->
 <nav class="sidebar w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" id="mySidebar"><br>
 	<a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
@@ -28,8 +27,29 @@
 		<h3 class="w3-padding-64 rotate"><b>You laugh you lose!</b></h3>
 	</div>
 	<div class="w3-bar-block">
+		<a class="w3-bar-item w3-button w3-hover-white icon2" onclick="openSearch(event, 'connect'), w3_close()">Connection </a>
 		<a class="w3-bar-item w3-button w3-hover-white" onclick="openSearch(event, 'youtube'), w3_close()">YouTube</a>
 		<a class="w3-bar-item w3-button w3-hover-white" onclick="openSearch(event, 'gif'), w3_close()">GIF</a>
+		
+		<div class="footer">
+			<p class="w3-bar-item">
+				Collaborators:
+			</p>
+			<ul>
+				<li>Enzo Trompeneers</li>
+				<li>Adriaan Marain</li>
+				<li>Yawuar Serna Delgado</li>
+				<li>Arteau De Meester</li>
+				<li>Dieter Vercammen</li>
+				<li>Nick Verstocken</li>
+				<li>Kevin Bavuidi Minu</li>
+			</ul>
+
+			<p class="w3-bar-item hackathon">
+				Hackathon 2017 <br>
+				@ These Days <br>
+			</p>
+		</div>
 	</div>
 </nav>
 
@@ -46,13 +66,23 @@
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
   <div class="w3-container" style="margin-top:80px" id="showcase">
     <h1 class="w3-jumbo"><b>You laugh you lose</b></h1>
+
+	<div id="connect" class="tabcontent">
+		<h1 class="w3-xxxlarge w3-text-red"><b>Connect</b></h1>
+    	<hr>
+		<form class="search-form" action="" method="get">
+			<button class="button" type="button">Create Game</button>
+			<button class="button" type="button">Join Game</button>		
+		</form>
+	</div>
+
 	<div id="youtube" class="tabcontent">
 		<h1 class="w3-xxxlarge w3-text-red"><b>YouTube</b></h1>
-    	<hr style="width:50px;border:5px solid red" class="w3-round">
+    	<hr>
 		<form class="search-form" action="" method="get">
 			<input class="search" type="text" placeholder="Search..." required>
 			<span class="arrow">
-				<input class="button" type="button" value="Search">
+				<button class="button" type="button">Search</button>
 			</span>
 			
 		</form>
@@ -60,18 +90,20 @@
 
 	<div id="gif" class="tabcontent">
 		<h1 class="w3-xxxlarge w3-text-red"><b>GIF</b></h1>
-    	<hr style="width:50px;border:5px solid red" class="w3-round">
+    	<hr>
 		<form class="search-form" action="" method="get">
 			<input class="search" type="text" placeholder="Search..." required>
 			<span class="arrow">
-				<input class="button" type="button" value="Search">
+				<button class="button" type="button">Search</button>
 			</span>
 			
 		</form>
 	</div>
 
 
-    <canvas class="canvas" width="200" height="100"></canvas>
+    <canvas class="canvas-big" id="canvas-big"></canvas>
+    <canvas class="canvas-small" id="canvas-small"></canvas>
+
   </div>
 
 <script type="text/javascript" src="scripts/script.js"></script>

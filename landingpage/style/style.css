@@ -1,29 +1,42 @@
 body,h1,h2,h3,h4,h5 {
 	font-family: "Poppins", sans-serif
 }
+
 body {
-	font-size:16px;
+	font-size: 16px;
 }
-.canvas {
-	width: 50%;
-	height: 50%;
+
+hr {
+	border: 5px solid #f1453d;
+	width: 300px;
+}
+
+.canvas-big {
+	width: 70%;
+	height: 70%;
 	border:1px solid #f1453d;
+	content: "victim";
 }
+
+.canvas-small {
+	width: 30%;
+	height: 30%;
+	border:1px solid #f1453d;
+	float: right;
+}
+
 .sidebar {
 	z-index:3;
 	width:300px;
 	font-weight:bold;
 }
 
-
-/* Style the tab */
 div.tab {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
 }
 
-/* Style the buttons inside the tab */
 div.tab button {
     background-color: inherit;
     float: left;
@@ -34,27 +47,24 @@ div.tab button {
     transition: 0.3s;
 }
 
-/* Change background color of buttons on hover */
 div.tab button:hover {
     background-color: #ddd;
 }
 
-/* Create an active/current tablink class */
 div.tab button.active {
     background-color: #ccc;
 }
+
 .tabcontent {
 	display:none;
 }
-
-
-
 
 .search {
     padding:8px 15px;
     background:rgba(50, 50, 50, 0.2);
     border:0px solid #dbdbdb;
 }
+
 .button {
     position:relative;
     padding:5px 15px;
@@ -63,8 +73,13 @@ div.tab button.active {
     background-color:#f1453d;
     color:#fafafa;
 }
+
 .button:hover, .arrow:hover  {
-    cursor: hand;
+    cursor: pointer;
+}
+
+.button:focus {
+	outline: 0;
 }
 .arrow {
 	position: relative;
@@ -73,7 +88,6 @@ div.tab button.active {
 	padding: 8px 0 8px 15px;
 	margin-bottom: 20px;
 }
-
 
 .arrow::after {
 	right: 100%;
@@ -88,11 +102,18 @@ div.tab button.active {
 	border-width: 10px;
 	margin-top: -10px;
 }
+
 .search-form {
 	margin: 50px 0;
 }
 
-
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 8px;
+}
 
 
 

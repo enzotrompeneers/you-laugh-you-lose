@@ -28,3 +28,4 @@ function openSearch(evt, source) {
     document.getElementById(source).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
