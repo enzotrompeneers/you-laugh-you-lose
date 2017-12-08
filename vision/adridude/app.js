@@ -1,10 +1,28 @@
-var vision = require('@google-cloud/vision');
+require('dotenv').config();
 
-// Authenticating on a global basis.
-var projectId = 'you-laugh-you-lose-188416';
+var async = require('async');
+const vision = require('@google-cloud/vision');
 
 var gcloud = require('google-cloud')({
-    projectId: projectId,
-    keyFilename: './key/You Laugh You Lose-daa1f93d2d75',
-    key: 'AIzaSyCC1u7i3UJkr0jeIDDseBxR_ggWdzaYTuc'
+    projectId: process.env.PROJECT_ID,
+    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+    key: process.env.G_API_KEY
 });
+ 
+//future: compress images?
+
+const client = new vision.ImageAnnotatorClient();
+const fileName = './images/people.jpg';
+client.faceDetection(fileName)
+  .then((results) => {
+    const faces = results[0].faceAnnotations;
+
+    console.log('Faces:');
+    faces.forEach((face, i) => {
+      console.log(`  Face #${i + 1}:`);
+      console.log(`    Joy: ${face.joyLikelihood}`);
+    });
+  })
+  .catch((err) => {
+    console.error('ERROR:', err);
+  });
