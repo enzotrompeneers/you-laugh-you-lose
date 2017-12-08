@@ -1,26 +1,34 @@
 require('dotenv').config();
 
-var projectId = process.env.PROJECT_ID;
+var async = require('async');
+/* const vision = require('@google-cloud/vision');
 
 var gcloud = require('google-cloud')({
-    projectId: projectId,
+    projectId: process.env.PROJECT_ID,
     keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-    key: process.env.GOOGLE_API_KEY
+    key: process.env.G_API_KEY
 });
+ 
+//future: compress images?
 
-
-const vision = require('@google-cloud/vision');
 const client = new vision.ImageAnnotatorClient();
+const fileName = './images/people.jpg';
+client.faceDetection(fileName)
+  .then((results) => {
+    const faces = results[0].faceAnnotations;
 
-// Performs label detection on the image file
-client
- .labelDetection('./images/people.jpg')
- .then(results => {
-   const labels = results[0].labelAnnotations;
+    console.log('Faces:');
+    faces.forEach((face, i) => {
 
-   console.log('Labels:');
-   labels.forEach(label => console.log(label.description));
- })
- .catch(err => {
-   console.error('ERROR:', err);
- });
+      console.log(`  Face #${i + 1}:`);
+      console.log(`    Joy: ${face.joyLikelihood}`);
+      console.log(`    Anger: ${face.angerLikelihood}`);
+      console.log(`    Sorrow: ${face.sorrowLikelihood}`);
+      console.log(`    Surprise: ${face.surpriseLikelihood}`);
+    });
+  })
+  .catch((err) => {
+    console.error('ERROR:', err);
+  }); */
+
+
