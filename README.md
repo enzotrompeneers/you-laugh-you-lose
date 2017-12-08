@@ -8,4 +8,5 @@ Rooms/Matchmaking --> Nick
 Gifs --> Kevin
 Camera --> Yawuar
 HTTPS (C9?) --> Adriaan
+Face detection --> Adriaan
 Landingpage --> Enzo
