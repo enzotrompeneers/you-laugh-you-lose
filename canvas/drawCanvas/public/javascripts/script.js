@@ -5,19 +5,16 @@
         Init 
     */
     App.init = function() {
-      App.canvas = document.createElement('canvas');
-      App.canvas.height = 800;
-      App.canvas.width = 1000;
-      document.getElementsByTagName('article')[0].appendChild(App.canvas);
+      App.canvas = document.getElementById('send');
+      App.canvas.height = 400;
+      App.canvas.width = 500;
+      //document.getElementsByTagName('article')[0].appendChild(App.canvas);
       App.ctx = App.canvas.getContext("2d");
       App.ctx.fillStyle = "solid";
       App.ctx.strokeStyle = "#ECD018";
       App.ctx.lineWidth = 5;
       App.ctx.lineCap = "round";
-      App.socket = io.connect('http://localhost:3000');
-      App.socket.on('draw', function(data) {
-        return App.draw(data.x, data.y, data.type);
-      });
+      App.socket = io();
       App.draw = function(x, y, type) {
         if (type === "dragstart") {
           App.ctx.beginPath();
@@ -29,6 +26,25 @@
           return App.ctx.closePath();
         }
       };
+
+      App.socket.on('draw', function(data) {
+        // broadcasten
+        //App.socket.broadcast.emit('drawing', );
+        App.draw(data.x, data.y, data.type);
+      });
+
+      App.canvasReceiver = document.getElementById('receive');
+      App.canvasRec = App.canvasReceiver.getContext("2d");
+      App.canvasReceiver.width = 400;
+      App.canvasReceiver.height = 500;
+
+      App.socket.on('connection', function(socket) {
+        socket.on('drawClick', function(data) {
+          socket.broadcast.emit('draw',{ x : data.x, y : data.y, type: data.type});
+        })
+      });
+
+
     };
     /*
         Draw Events
