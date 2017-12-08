@@ -10,15 +10,19 @@ jQuery(function ($) {
         bindEvents: function () {
             IO.socket.on('connected', IO.onConnected);
             IO.socket.on('newGameCreated', IO.onNewGameCreated);
-            IO.socket.on('playerJoinRoom', IO.playerJoinRoom);
+            IO.socket.on('playerJoinedRoom', IO.playerJoinedRoom);
+            IO.socket.on('beginNewGame', IO.beginNewGame );
         },
         onConnected: function () {
             // Cache a copy of the client's socket.IO session ID on the App
-            App.mySocketId = IO.socket;
+            App.mySocketId = IO.socket.id;
             // console.log(data.message);
         },
         onNewGameCreated: function (data) {
             App.room.gameInit(data);
+        },
+        beginNewGame : function(data) {
+            //App[App.myRole].gameCountdown(data);
         },
         playerJoinedRoom : function(data) {
 
@@ -71,7 +75,7 @@ jQuery(function ($) {
             gameInit: function (data) {
                 App.gameId = data.gameId;
                 App.mySocketId = data.mySocketId;
-                App.myRole = 'Host';
+                App.myRole = 'room';
                 App.numPlayersInRoom = 0;
                 App.room.displayNewGameScreen(data);
                 console.log("Game started with ID: " + App.gameId + ' by host: ' + App.mySocketId);
@@ -96,7 +100,9 @@ jQuery(function ($) {
                     .text('Player ' + data.playerName + ' joined the game.');
                 App.room.players.push(data);
                 App.room.numPlayersInRoom += 1;
+                console.log(App.room.numPlayersInRoom);
                 if (App.room.numPlayersInRoom === 2) {
+                    console.log('players connected', App.room.players);
                     IO.socket.emit('hostRoomFull',App.gameId);
                 }
             },
@@ -129,6 +135,17 @@ jQuery(function ($) {
                 // Set the appropriate properties for the current player.
                 App.myRole = 'player';
                 App.player.myName = data.playerName;
+            },
+            updateWaitingScreen : function(data) {
+                console.log(IO.socket.id);
+                if(IO.socket.id === data.mySocketId){
+                    App.myRole = 'player';
+                    App.gameId = data.gameId;
+
+                    $('#playerWaitingMessage')
+                        .append('<p/>')
+                        .text('Joined Game ' + data.gameId + '. Please wait for game to begin.');
+                }
             },
         }
     };

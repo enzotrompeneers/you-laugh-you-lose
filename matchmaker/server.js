@@ -15,13 +15,10 @@ exports.initGame = function(sio, socket){
 
     // Host Events
     gameSocket.on('hostCreateNewGame', hostCreateNewGame);
-   // gameSocket.on('hostRoomFull', hostPrepareGame);
-    gameSocket.on('hostCountdownFinished', hostStartGame);
-   // gameSocket.on('hostNextRound', hostNextRound);
-
+    gameSocket.on('hostRoomFull', hostPrepareGame);
     // Player Events
    gameSocket.on('playerJoinRoom', playerJoinRoom);
-}
+};
 function hostCreateNewGame() {
     // Create a unique Socket.IO Room
     var thisGameId = ( Math.random() * 100000 ) | 0;
@@ -29,37 +26,28 @@ function hostCreateNewGame() {
     this.emit('newGameCreated', {gameId: thisGameId, mySocketId: this.id});
 
     // Join the Room and wait for the players
-    gameSocket.join(thisGameId.toString());
+    gameSocket.join(thisGameId, function () {
+    console.log(gameSocket.rooms); // [ <socket.id>, 'room 237' ]
+});
 };
 
 function hostStartGame(gameId) {
     console.log('Game Started.');
 
 };
-
+function hostPrepareGame(gameId) {
+    var sock = this;
+    var data = {
+        mySocketId : sock.id,
+        gameId : gameId
+    };
+    console.log("All Players Present. Preparing game...");
+    io.sockets.in(data.gameId).emit('beginNewGame', data);
+}
 function playerJoinRoom(data) {
     console.log('Player ' + data.playerName + ' attempting to join game: ' + data.gameId );
-
     var sock = this;
-
-    // Look up the room ID in the Socket.IO manager object.
-    var room = gameSocket.rooms["/" + data.gameId];
-    console.log(gameSocket.rooms);
-    // If the room exists...
-    if( room != undefined ){
-        // attach the socket id to the data object.
-        data.mySocketId = sock.id;
-
-        // Join the room
-        sock.join(data.gameId);
-
-        console.log('Player ' + data.playerName + ' joining game: ' + data.gameId );
-
-        // Emit an event notifying the clients that the player has joined the room.
-        io.sockets.in(data.gameId).emit('playerJoinedRoom', data);
-
-    } else {
-        // Otherwise, send an error message back to the player.
-        console.log('room doesnt exist');
-    }
+    data.mySocketId = sock.id;
+    sock.join(data.gameId);
+    io.sockets.in(data.gameId).emit('playerJoinedRoom', data);
 }
