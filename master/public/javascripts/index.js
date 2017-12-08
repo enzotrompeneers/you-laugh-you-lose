@@ -3,11 +3,10 @@ function ytSearch() {
         console.log(data.items);
         $.each( data.items, function( key, value ) {
             $video_id = data.items[key].id.videoId;
-            $video_thumb = data.items[key].snippet.thumbnails.high.url;
+            $video_thumb = data.items[key].snippet.thumbnails.medium.url;
 
             $( "<img src='" + $video_thumb + "' />" ).appendTo( ".thumbnail-wrapper" );
-            console.log("youtube url= https://www.youtube.com/watch?v="+ $video_id);
-            
+            console.log("youtube url= https://www.youtube.com/watch?v="+ $video_id + "?autoplay=1");
           });
     });
 }
