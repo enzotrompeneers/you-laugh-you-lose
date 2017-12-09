@@ -18,7 +18,6 @@
     }
 
     function loadCam(stream) {
-        console.log(stream);
         video.src = window.URL.createObjectURL(stream);
         logger('camera werkt');
     }
