@@ -24,6 +24,10 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
     console.log('client connected');
     connectServer.initGame(io, socket);
+
+    socket.on('stream', function(data) {
+        socket.broadcast.emit('stream', data);
+    });
 });
 
 var youtubeController = require('./controllers/youtubeController');

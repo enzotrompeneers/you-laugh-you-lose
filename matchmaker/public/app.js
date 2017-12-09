@@ -1,5 +1,5 @@
 jQuery(function ($) {
-
+    var socket = io.connect('http://localhost:3000');
     var IO = {
         init: function () {
             IO.socket = io.connect();
@@ -144,10 +144,14 @@ jQuery(function ($) {
                 // immediately ask for camera access
                 autoRequestMedia: true
             });
+            document.getElementById('video').src = window.URL.createObjectURL(stream);
             webrtc.joinRoom(App.gameId);
         },
-
-
+        viewVideo: function(video, context, canvas) {
+            console.log(video);
+            context.drawImage(video, 0, 0, context.width, context.height);
+            socket.emit('stream', canvas.toDataURL('image/webp'));
+        },
         loadFail : function () {
             console.log('fail');
         },
@@ -286,12 +290,47 @@ jQuery(function ($) {
             },
             showVideo : function () {
                 App.$gameArea.html(App.$startGame);
+
+                var canvas = document.getElementById('preview');
+                var context = canvas.getContext('2d');
+            
+                canvas.width = 800;
+                canvas.height = 600;
+            
+                context.width = canvas.width;
+                context.height = canvas.height;
+            
+                var video = document.getElementById('video');
+            
+                var socket = io.connect('http://localhost:3000');
+            
+                function logger(msg) {
+                    $('#logger').text(msg);
+                }
+            
+                function loadCam(stream) {
+                    video.src = window.URL.createObjectURL(stream);
+                    logger('camera werkt');
+                }
+            
+                function loadFail() {
+                    logger('camera werkt niet');
+                }
+            
+                function viewVideo(video, context) {
+                    context.drawImage(video, 0, 0, context.width, context.height);
+                    socket.emit('stream', canvas.toDataURL('image/webp'));
+                }
+
                 navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
                 if(navigator.getUserMedia) {
                     navigator.getUserMedia({video: true}, App.loadCam, App.loadFail);
                 }
 
+                setInterval(function() {
+                    viewVideo(video, context);
+                }, 1);
             },
 
         }
@@ -306,6 +345,14 @@ jQuery(function ($) {
         });
     });
 
+
+    
+    socket.on('stream', function(image) {
+        var img = document.getElementById('play');
+        if(img) {
+            img.src = image; 
+        }
+    });
     $('#btnGifSearch').click(function() {
         searchGif();
     });

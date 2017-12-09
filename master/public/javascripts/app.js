@@ -18,7 +18,6 @@
     }
 
     function loadCam(stream) {
-        console.log(stream);
         video.src = window.URL.createObjectURL(stream);
         logger('camera werkt');
     }
@@ -31,7 +30,7 @@
         context.drawImage(video, 0, 0, context.width, context.height);
         socket.emit('stream', canvas.toDataURL('image/webp'));
     }
-
+    
     navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
     if(navigator.getUserMedia) {
