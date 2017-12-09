@@ -1,0 +1,155 @@
+body,h1,h2,h3,h4,h5 {
+	font-family: "Poppins", sans-serif
+}
+
+body {
+	font-size: 16px;
+}
+
+hr {
+	border: 5px solid #f1453d;
+	width: 300px;
+}
+
+.canvas-big {
+	width: 70%;
+	height: 70%;
+	border:1px solid #f1453d;
+}
+
+.canvas-small {
+	width: 30%;
+	height: 30%;
+	border:1px solid #f1453d;
+	float: right;
+}
+
+.sidebar {
+	z-index:3;
+	width:300px;
+	font-weight:bold;
+}
+
+div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+div.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+div.tab button:hover {
+    background-color: #ddd;
+}
+
+div.tab button.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+	display:none;
+	margin: 20px 0;
+}
+
+.search {
+    padding: 5px 15px;
+    background: rgba(50, 50, 50, 0.2);
+    border: 2px solid #f1453d;
+}
+.search:focus {
+	outline: 0;
+}
+
+.button {
+    position:relative;
+    padding:5px 15px;
+    border:2px solid #f1453d;
+    background-color:#f1453d;
+    color:#fafafa;
+}
+
+.button:hover  {
+    cursor: pointer;
+}
+
+.button:focus {
+	outline: 0;
+}
+.arrow {
+	position: relative;
+	left: -8px;
+	background: #f1453d;
+	padding: 8px 0 8px 15px;
+	margin-bottom: 20px;
+}
+
+.arrow::after {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	border-color: rgba(32, 124, 202, 0);
+	border-right-color: #f1453d;
+	border-width: 10px;
+	margin-top: -10px;
+}
+
+.search-form {
+	margin: 50px 0;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 8px;
+}
+.createGameWrapper {
+	margin: 20px 0;
+}
+
+.inputfields:focus {
+	outline: none;
+}
+.joinGameWrapper, .start-button {
+	margin: 20px 0;
+}
+
+.labelfields {
+  display: inline-block;
+  width: 140px;
+  text-align: left;
+}​
+.iframe-wrapper, .gameArea {
+	float: left;
+	width: 560px; 
+	position: relative;
+	
+}
+.game-buttons {
+	margin: 20px 0;
+}
+.video {
+	width: 560px; 
+	height:340px;
+	margin: 0;
+	padding: 0;
+	float: left;
+	position: relative;
+}
+
+
+
+

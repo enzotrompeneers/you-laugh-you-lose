@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+    <title>You laugh you lose</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="you laugh you lose project 24 hour hackathon @ These Days"/>
+    <meta name="robots" content="nofollow"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <meta property="og:title" content="you-laugh-you-lose"/>
+    <meta property="og:description" content="you laugh you lose project 24 hour hackathon @ These Days"/>
+    <meta property="og:locale" content="nl_BE"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://you-laugh-you-lose.be/"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+
+    <!-- Ensure that everything scales appropriately on a mobile device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <!-- Let's borrow a cool looking Font from Google -->
+    <link href='https://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+
+    <!--<link href="css/styles.css" rel="stylesheet">-->
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" id="mySidebar"><br>
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+    <div class="w3-container">
+        <h3 class="w3-padding-64 rotate"><b>You laugh you lose!</b></h3>
+    </div>
+    <div class="w3-bar-block">
+        <a class="w3-bar-item w3-button w3-hover-white icon2" onclick="openSearch(event, 'connect'), w3_close()">Connection </a>
+        <a class="w3-bar-item w3-button w3-hover-white" onclick="openSearch(event, 'youtube'), w3_close()">YouTube</a>
+        <!--<a class="w3-bar-item w3-button w3-hover-white" onclick="openSearch(event, 'gif'), w3_close()">GIF</a>-->
+        
+        <div class="footer">
+            <p class="w3-bar-item">
+                Collaborators:
+            </p>
+            <ul>
+                <li>Enzo Trompeneers</li>
+                <li>Adriaan Marain</li>
+                <li>Yawuar Serna Delgado</li>
+                <li>Arteau De Meester</li>
+                <li>Dieter Vercammen</li>
+                <li>Nick Verstocken</li>
+                <li>Kevin Bavuidi Minu</li>
+            </ul>
+
+            <p class="w3-bar-item hackathon">
+                Hackathon 2017 <br>
+                @ These Days <br>
+            </p>
+        </div>
+    </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+    <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+    <span>You laugh you lose</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+    <div class="w3-container" style="margin-top:80px" id="showcase">
+        <h1 class="w3-jumbo"><b>You laugh you lose</b></h1>
+
+        <div id="connect" class="tabcontent">
+            <h1 class="w3-xxxlarge w3-text-red"><b>Connect</b></h1>
+            <hr>
+            <!-- Main Title Screen that appears when the page loads for the first time -->
+            <div class="game-buttons">
+                <button id="btnCreateGame" class="button">Create Game</button>
+                <button id="btnJoinGame" class="button">Join Game</button>
+            </div>
+
+            
+            
+            <div style="clear:both"></div>
+            <div id="gameArea">
+                <!-- This is where the templates defined below will be used -->
+            </div>
+            <div class="iframe-wrapper"></div>
+        </div>
+
+
+        <div id="youtube" class="tabcontent">
+            <h1 class="w3-xxxlarge w3-text-red"><b>YouTube</b></h1>
+            <hr>
+            <input class="search" type="text" id="youtube-search" placeholder="Search..." required>
+            <span class="arrow">
+                <button class="button" type="button" id="btnYtSearch">Search</button>
+            </span>
+
+            <div onclick="openSearch(event, 'connect'), w3_close()" class="thumbnail-wrapper"></div>
+        </div>
+            
+
+<!-- Main Title Screen that appears when the page loads for the first time -->
+<script id="intro-screen-template" type="text/template">
+
+    <div class="titleWrapper">
+        <div id="gif" class="tabcontent">
+            <h1 class="w3-xxxlarge w3-text-red"><b>GIF</b></h1>
+            <hr>
+            <input class="search" type="text" placeholder="Search..." required>
+            <span class="arrow">
+                <button class="button" type="button">Search</button>
+            </span>
+        </div>
+
+    </div>
+</script>
+
+<!-- This screen appears when a user clicks "CREATE" on the Title Screen -->
+<script id="create-game-template" type="text/template">
+    <div class="createGameWrapper">
+        <div class="info">Open this site:</div>
+        <div id="gameURL" class="infoBig">Error!</div>
+
+        <div class="info">Then click <strong>JOIN</strong> with channel code:</div>
+        <div id="spanNewGameCode" class="gameId">Error!</div>
+
+        <div id="playersWaiting"></div>
+    </div>
+</script>
+<!-- This screen appears when the game starts -->
+<script id="start-game-template" type="text/template">
+    <div class="startGameWrapper">
+        <video src="" id="video" autoplay="true"></video>
+        <canvas id="preview"></canvas>
+        <div id="remoteVideos"></div>
+    </div>
+</script>
+<!-- This scrreen appears when a player clicks "JOIN" on the Title Screen -->
+<script id="join-game-template" type="text/template">
+    <div class="joinGameWrapper">
+        <div class="info">
+            <label class="labelfields" for="inputPlayerName">Your Name:</label>
+            <input class="inputfields" id="inputPlayerName" type="text" required/>
+        </div>
+
+        <div class="info">
+            <label class="labelfields" for="inputGameId">Game ID:</label>
+            <input class="inputfields" id="inputGameId" type="text" required />
+        </div>
+
+        <div class="info start-button">
+            <button id="btnStart" class="button">Start</button>
+            <div id="playerWaitingMessage"></div>
+        </div>
+    </div>
+</script>
+
+<script id="host-game-template" type="text/template">
+    <div id="wordArea">
+        <div id="hostWord">5</div>
+    </div>
+    <div id="playerScores">
+        <div id="player1Score" class="playerScore">
+            <span class="score">0</span><span class="playerName">Player 1</span>
+        </div>
+        <div id="player2Score" class="playerScore">
+            <span class="playerName">Player 2</span><span class="score">0</span>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/javascript" src="scripts/script.js"></script>
+<script src="libs/jquery-2.0.2.min.js"></script>
+<script src="https://simplewebrtc.com/latest-v2.js"></script>
+<!-- If Socket.IO is used with Express, then the /socket.io/ path will
+    serve the proper Socket.IO javascript files used by the browser -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
