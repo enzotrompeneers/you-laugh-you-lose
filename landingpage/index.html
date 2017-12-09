@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>You laugh you lose</title>
+	<meta charset="utf-8" />
+	<meta name="description" content="you laugh you lose project 24 hour hackathon @ These Days"/>
+	<meta name="robots" content="nofollow"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+
+	<meta property="og:title" content="you-laugh-you-lose"/>
+	<meta property="og:description" content="you laugh you lose project 24 hour hackathon @ These Days"/>
+	<meta property="og:locale" content="nl_BE"/>
+	<meta property="og:type" content="website"/>
+	<meta property="og:url" content="http://you-laugh-you-lose.be/"/>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" id="mySidebar"><br>
+	<a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+	<div class="w3-container">
+		<h3 class="w3-padding-64 rotate"><b>You laugh you lose!</b></h3>
+	</div>
+	<div class="w3-bar-block">
+		<a class="w3-bar-item w3-button w3-hover-white icon2" onclick="openSearch(event, 'connect'), w3_close()">Connection </a>
+		<a class="w3-bar-item w3-button w3-hover-white" onclick="openSearch(event, 'youtube'), w3_close()">YouTube</a>
+		<a class="w3-bar-item w3-button w3-hover-white" onclick="openSearch(event, 'gif'), w3_close()">GIF</a>
+		
+		<div class="footer">
+			<p class="w3-bar-item">
+				Collaborators:
+			</p>
+			<ul>
+				<li>Enzo Trompeneers</li>
+				<li>Adriaan Marain</li>
+				<li>Yawuar Serna Delgado</li>
+				<li>Arteau De Meester</li>
+				<li>Dieter Vercammen</li>
+				<li>Nick Verstocken</li>
+				<li>Kevin Bavuidi Minu</li>
+			</ul>
+
+			<p class="w3-bar-item hackathon">
+				Hackathon 2017 <br>
+				@ These Days <br>
+			</p>
+		</div>
+	</div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+	<a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+	<span>You laugh you lose</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><b>You laugh you lose</b></h1>
+
+	<div id="connect" class="tabcontent">
+		<h1 class="w3-xxxlarge w3-text-red"><b>Connect</b></h1>
+    	<hr>
+		<form class="search-form" action="" method="get">
+			<button class="button" type="button">Create Game</button>
+			<button class="button" type="button">Join Game</button>		
+		</form>
+	</div>
+
+	<div id="youtube" class="tabcontent">
+		<h1 class="w3-xxxlarge w3-text-red"><b>YouTube</b></h1>
+    	<hr>
+		<form class="search-form" action="" method="get">
+			<input class="search" type="text" placeholder="Search..." required>
+			<span class="arrow">
+				<button class="button" type="button">Search</button>
+			</span>
+			
+		</form>
+	</div>
+
+	<div id="gif" class="tabcontent">
+		<h1 class="w3-xxxlarge w3-text-red"><b>GIF</b></h1>
+    	<hr>
+		<form class="search-form" action="" method="get">
+			<input class="search" type="text" placeholder="Search..." required>
+			<span class="arrow">
+				<button class="button" type="button">Search</button>
+			</span>
+			
+		</form>
+	</div>
+
+
+    <canvas class="canvas-big" id="canvas-big"></canvas>
+    <canvas class="canvas-small" id="canvas-small"></canvas>
+
+  </div>
+
+<script type="text/javascript" src="scripts/script.js"></script>
+</body>
+</html>

@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/javascripts/index.js"></script>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <input type="text" id="youtube-search">
-    <button onclick="ytSearch()">Search</button>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Yawuar</title>
+</head>
+<body>
+  <!-- Yawuar's code -->
+  <video src="" id="video" style="width: 680px; height:320px;" autoplay="true"></video>
+  <canvas id="preview"></canvas>
+  <div id="logger"></div>
 
-    <div class="thumbnail-wrapper"></div>
-    <div class="iframe-wrapper"></div>
+  <input type="text" id="youtube-search">
+  <button onclick="ytSearch()">Search</button>
 
-  </body>
+  <div class="thumbnail-wrapper"></div>
+  <div class="iframe-wrapper"></div>
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script src="/javascripts/app.js"></script>
+  <script src="/javascripts/index.js"></script>
+</body>
 </html>
