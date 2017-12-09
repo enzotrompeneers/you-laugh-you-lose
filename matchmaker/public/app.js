@@ -64,6 +64,7 @@ jQuery(function ($) {
                 App.room.onCreateClick();
             });
             App.$doc.on('click', '#btnJoinGame', function () {
+                console.log('btnJoinGame');
                 App.$gameArea.html(App.$templateJoinGame);
             });
             App.$doc.on('click', '#btnStart', function () {
