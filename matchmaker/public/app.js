@@ -303,7 +303,7 @@ jQuery(function ($) {
             
                 var video = document.getElementById('video');
             
-                var socket = io.connect('http://localhost:3000');
+                socket = IO.socket;
             
                 function logger(msg) {
                     $('#logger').text(msg);
@@ -320,7 +320,8 @@ jQuery(function ($) {
             
                 function viewVideo(video, context) {
                     context.drawImage(video, 0, 0, context.width, context.height);
-                    socket.emit('stream', canvas.toDataURL('image/webp'));
+                   //IO.socketio.in(App.gameId).emit('stream', canvas.toDataURL('image/webp'))
+                    IO.socket.emit('stream', canvas.toDataURL('image/webp'));
                 }
 
                 navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
