@@ -17,6 +17,7 @@ jQuery(function ($) {
             IO.socket.on('playCountDown', IO.showCountDown);
             IO.socket.on('uMoederEmitted', IO.uMoederEmitted);
             IO.socket.on('ytEmitted', IO.ytEmitted);
+            IO.socket.on('gifEmitted', IO.gifEmitted);
         },
         onConnected: function () {
             // Cache a copy of the client's socket.IO session ID on the App
@@ -52,6 +53,8 @@ jQuery(function ($) {
                 $('.iframe-wrapper').empty();
                 $( "<iframe width='560' height='315' src='" + data[2] + "?autoplay=1'frameborder='0' gesture='media' allow='encrypted-media' allowfullscreen</iframe>" ).appendTo( ".iframe-wrapper" );
             }
+        gifEmitted : function (data) {
+          console.log(data);
         }
     };
 
@@ -302,7 +305,43 @@ jQuery(function ($) {
         });
     });
 
+    $('#btnGifSearch').click(function() {
+        searchGif();
+    });
+
     IO.init();
     App.init();
 
 }($));
+
+
+var gifKey = "OUsWjpISlIIZOhQx9uAtVQjOeIUvA2Du";
+
+var searchGif = function (){
+    $("#gifList").empty();
+    var searchValue = $('#gifSearch').val().split(' ').join('_');
+
+    //javascript, jQuery
+    var xhr = $.get("http://api.giphy.com/v1/gifs/search?q="+searchValue+"&api_key="+gifKey+"&limit=5");
+    xhr.done(function(data) {
+
+       $.each(data.data, function( key, value ) {
+          $("#gifList").append(`
+            <li>
+                <img src="`+value.images.fixed_height_small.url+`"
+                    onclick=sendGif("` +value.images.fixed_height_small.url+ `")>
+            </li>`);
+        });
+        
+    });
+};
+
+var sendGif = function(url){
+    $("#sendGifList").empty();
+    $("#sendGifList").append('<li><img src="'+url+'"></li>');
+    $("#gifList").empty();
+    socket.emit('gifurl',url);
+    socket.on('gifurl', function(gif){
+        $("#pis").append('<li><img src="'+gif+'"></li>');
+    });
+};
