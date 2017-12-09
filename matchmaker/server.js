@@ -23,6 +23,7 @@ exports.initGame = function(sio, socket){
     gameSocket.on('countDown', playerCountDown);
     gameSocket.on('playerJoinRoom', playerJoinRoom);
     gameSocket.on('ytVideo', chooseYtVideo);
+    gameSocket.on('gifurl',chooseGif);
 };
 function hostCreateNewGame() {
     // Create a unique Socket.IO Room
@@ -40,6 +41,10 @@ function uMoeder(data) {
 };
 function chooseYtVideo(data) {
     io.sockets.in(data[0]).emit('ytEmitted', data)
+}
+function chooseGif(data) {
+    console.log(data);
+    io.sockets.in(data[0]).emit('gifEmitted', data);
 }
 function hostStartGame(gameId) {
     console.log('Game Started.');
