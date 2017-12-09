@@ -227,7 +227,7 @@ jQuery(function ($) {
                 IO.socket.emit('uMoeder', data);
             },
             onYtSearchClick: function() {
-                $('.thumbnail-wrapper').empty();
+               // $('.thumbnail-wrapper').empty();
                 //$('.iframe-wrapper').empty();
                 $.get("http://localhost:3000/search/" + $('#youtube-search').val(), function(data, status){
                     console.log(data.items);
