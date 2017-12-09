@@ -12,6 +12,8 @@ jQuery(function ($) {
             IO.socket.on('newGameCreated', IO.onNewGameCreated);
             IO.socket.on('playerJoinedRoom', IO.playerJoinedRoom);
             IO.socket.on('beginNewGame', IO.beginNewGame );
+            IO.socket.on('gameStarted', IO.gameStarted);
+            IO.socket.on('playCountDown', IO.showCountDown)
         },
         onConnected: function () {
             // Cache a copy of the client's socket.IO session ID on the App
@@ -30,6 +32,12 @@ jQuery(function ($) {
             console.log(App.myRole);
             App[App.myRole].updateWaitingScreen(data);
         },
+        showCountDown : function (data) {
+            App.player.updateCountDown(data);
+        },
+        gameStarted : function () {
+            
+        }
     };
 
     var App = {
@@ -63,9 +71,36 @@ jQuery(function ($) {
             App.$templateIntroScreen = $('#intro-screen-template').html();
             App.$templateNewGame = $('#create-game-template').html();
             App.$templateJoinGame = $('#join-game-template').html();
+            App.$hostGame = $('#host-game-template').html();
         },
         showInitScreen: function () {
             App.$gameArea.html(App.$templateIntroScreen);
+        },
+        countDown : function( $el, startTime, callback) {
+
+            // Display the starting time on the screen.
+            $el.text(startTime);
+
+
+
+            // Start a 1 second timer
+            var timer = setInterval(countItDown,1000);
+
+            // Decrement the displayed timer value on each 'tick'
+            function countItDown(){
+                startTime -= 1
+                $el.text(startTime);
+                IO.socket.emit('countDown', [App.gameId, startTime]);
+                if( startTime <= 0 ){
+                    // console.log('Countdown Finished.');
+
+                    // Stop the timer and do the callback.
+                    clearInterval(timer);
+                    callback();
+                    return;
+                }
+            }
+
         },
         /**
          * ROOM
@@ -110,6 +145,30 @@ jQuery(function ($) {
                     IO.socket.emit('hostRoomFull',App.gameId);
                 }
             },
+            beginGame : function() {
+
+                // Prepare the game screen with new HTML
+                App.$gameArea.html(App.$hostGame);
+
+                // Begin the on-screen countdown timer
+                var $secondsLeft = $('#hostWord');
+                App.countDown( $secondsLeft, 5, function(){
+                    IO.socket.emit('hostCountdownFinished', App.gameId);
+                });
+
+                // Display the players' names on screen
+                $('#player1Score')
+                    .find('.playerName')
+                    .html(App.room.players[0].playerName);
+
+                $('#player2Score')
+                    .find('.playerName')
+                    .html(App.room.players[1].playerName);
+
+                // Set the Score section on screen to 0 for each player.
+                $('#player1Score').find('.score').attr('id',App.room.players[0].mySocketId);
+                $('#player2Score').find('.score').attr('id',App.room.players[1].mySocketId);
+            },
         },
         /**
          * PLAYER
@@ -139,6 +198,11 @@ jQuery(function ($) {
                 // Set the appropriate properties for the current player.
                 App.myRole = 'player';
                 App.player.myName = data.playerName;
+            },
+            updateCountDown : function(data){
+                console.log(data);
+                $('#gameArea')
+                    .html('<div class="gameOver">' + data + '</div>');
             },
             beginGame : function(hostData) {
                 App.player.hostSocketId = hostData.mySocketId;
