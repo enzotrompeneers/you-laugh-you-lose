@@ -6,8 +6,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var io = require('socket.io')(app);
-
 var app = express();
 
 var matchmakingController = require('./controllers/matchmakingController');
@@ -32,24 +30,26 @@ app.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+app.get('/test', function(req, res, next) {
+  res.render('test', { title: 'Express' });
+});
+
 /*
 *
 * Yawuar's code
 *
 */
 
-io.on('socket', function(socket) {
-  socket.on('stream', function(image) {
-    socket.broadcast.emit('stream', image);
-  });
-});
-
 // var line_history = [];
-io.on('socket', function (socket) {
-  socket.on('msg', function (data) {
-    socket.broadcast.emit('msg', msg);
- });
-});
+// io.on('connection', function (socket) {
+//   for (var i in line_history) {
+//     socket.emit('draw_line', { line: line_history[i] } );
+//   }
+//   socket.on('draw_line', function (data) {
+//     line_history.push(data.line);
+//     io.emit('draw_line', { line: data.line });
+//  });
+// });
 
 /* GET searchterms (ajax request) */
 app.get('/search/:searchterm', function(req, res, next) {
