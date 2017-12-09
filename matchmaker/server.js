@@ -19,6 +19,7 @@ exports.initGame = function(sio, socket){
     gameSocket.on('hostCountdownFinished', hostStartGame);
 
     // Player Events
+    gameSocket.on('uMoeder', uMoeder);
     gameSocket.on('countDown', playerCountDown);
    gameSocket.on('playerJoinRoom', playerJoinRoom);
 };
@@ -33,7 +34,9 @@ function hostCreateNewGame() {
     console.log(gameSocket.rooms); // [ <socket.id>, 'room 237' ]
 });
 };
-
+function uMoeder(data) {
+    io.sockets.in(data[0]).emit('uMoederEmitted', data)
+}
 function hostStartGame(gameId) {
     console.log('Game Started.');
     io.sockets.in(gameId).emit('gameStarted', 'hallo iedereen welkom bij de game');

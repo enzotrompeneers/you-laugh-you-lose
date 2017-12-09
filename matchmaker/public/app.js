@@ -14,7 +14,8 @@ jQuery(function ($) {
             IO.socket.on('playerJoinedRoom', IO.playerJoinedRoom);
             IO.socket.on('beginNewGame', IO.beginNewGame );
             IO.socket.on('gameStarted', IO.gameStarted);
-            IO.socket.on('playCountDown', IO.showCountDown)
+            IO.socket.on('playCountDown', IO.showCountDown);
+            IO.socket.on('uMoederEmitted', IO.uMoederEmitted)
         },
         onConnected: function () {
             // Cache a copy of the client's socket.IO session ID on the App
@@ -38,6 +39,10 @@ jQuery(function ($) {
         },
         gameStarted : function () {
           App.player.showVideo();
+        },
+        uMoederEmitted : function (data) {
+            console.log(data);
+
         }
     };
 
@@ -64,6 +69,9 @@ jQuery(function ($) {
             App.$doc.on('click', '#btnStart', function () {
                 App.player.onPlayerStartClick();
             });
+            App.$doc.on('click', '#btnuMoeder', function () {
+                App.player.onUmoederClick();
+            })
         },
         cacheElements: function () {
             App.$doc = $(document);
@@ -105,10 +113,15 @@ jQuery(function ($) {
 
         },
         loadCam : function (stream) {
-            console.log(stream);
-            var video = document.getElementById('video');
-
-            video.src = window.URL.createObjectURL(stream);
+            var webrtc = new SimpleWebRTC({
+                // the id/element dom element that will hold "our" video
+                localVideoEl: 'video',
+                // the id/element dom element that will hold remote videos
+                remoteVideosEl: 'remoteVideos',
+                // immediately ask for camera access
+                autoRequestMedia: true
+            });
+            webrtc.joinRoom(App.gameId);
         },
 
 
@@ -196,6 +209,10 @@ jQuery(function ($) {
              * The player's name entered on the 'Join' screen.
              */
             myName: '',
+            onUmoederClick: function() {
+                var data = [App.gameId, App.player]
+                IO.socket.emit('uMoeder', data);
+            },
             onPlayerStartClick: function() {
                 console.log('Player clicked "Start"');
 
