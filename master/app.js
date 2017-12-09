@@ -6,6 +6,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var io = require('socket.io')(app);
+
 var app = express();
 
 var matchmakingController = require('./controllers/matchmakingController');
@@ -31,6 +33,25 @@ app.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+/*
+*
+* Yawuar's code
+*
+*/
+
+io.on('socket', function(socket) {
+  socket.on('stream', function(image) {
+    socket.broadcast.emit('stream', image);
+  });
+});
+
+// var line_history = [];
+io.on('socket', function (socket) {
+  socket.on('msg', function (data) {
+    socket.broadcast.emit('msg', msg);
+ });
+});
+
 /* GET searchterms (ajax request) */
 app.get('/search/:searchterm', function(req, res, next) {
   youtubeController.search(req.params.searchterm, function(result) {
@@ -53,7 +74,6 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
 });
 
 module.exports = app;
