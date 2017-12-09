@@ -45,8 +45,9 @@ jQuery(function ($) {
             console.log(data);
         },
         ytEmitted : function (data) {
+            $('.thumbnail-wrapper').empty();
             $('.iframe-wrapper').empty();
-            $( "<iframe width='560' height='315' src='" + data[2] + "&autoplay=1'frameborder='0' gesture='media' allow='encrypted-media' allowfullscreen</iframe>" ).appendTo( ".iframe-wrapper" );
+            $( "<iframe width='560' height='315' src='" + data[2] + "?autoplay=1'frameborder='0' gesture='media' allow='encrypted-media' allowfullscreen</iframe>" ).appendTo( ".iframe-wrapper" );
 
         }
     };
@@ -80,6 +81,12 @@ jQuery(function ($) {
             });
             App.$doc.on('click', '#btnYtSearch', function () {
                 App.player.onYtSearchClick();
+            });
+            App.$doc.on('keydown', '#outube-search', function () {
+                console.log("lol");
+                if (e.keyCode == 13) {
+                    App.player.onYtSearchClick();
+                }
             });
         },
         cacheElements: function () {
@@ -185,12 +192,6 @@ jQuery(function ($) {
                 // Prepare the game screen with new HTML
                 App.$gameArea.html(App.$hostGame);
 
-                // Begin the on-screen countdown timer
-                var $secondsLeft = $('#hostWord');
-                App.countDown( $secondsLeft, 1, function(){
-                    IO.socket.emit('hostCountdownFinished', App.gameId);
-                });
-
                 // Display the players' names on screen
                 $('#player1Score')
                     .find('.playerName')
@@ -223,6 +224,8 @@ jQuery(function ($) {
                 IO.socket.emit('uMoeder', data);
             },
             onYtSearchClick: function() {
+                $('.thumbnail-wrapper').empty();
+                $('.iframe-wrapper').empty();
                 $.get("http://localhost:3000/search/" + $('#youtube-search').val(), function(data, status){
                     console.log(data.items);
                     $.each( data.items, function( key, value ) {
@@ -290,7 +293,8 @@ jQuery(function ($) {
     $(function() {
         $( ".thumbnail-wrapper" ).on( "click", 'img', function() {
             var $video_id = $(this).attr('id');
-            $('.thumbnail-wrapper').hide();
+            $('.thumbnail-wrapper').empty();
+            $('.iframe-wrapper').empty();
             App.player.onYtVideoClick("//www.youtube.com/embed/" + $video_id);
         });
     });
