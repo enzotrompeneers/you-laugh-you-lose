@@ -17,12 +17,10 @@
   <script>
       var socket = io();
 
-      // ss(socket).on('stream', function(stream) {
-      //   console.log(stream);
-      // });
       socket.on('stream', function(image) {
         var img = document.getElementById('play');
         img.src = image;
+        
       });
   </script>
 </body>
