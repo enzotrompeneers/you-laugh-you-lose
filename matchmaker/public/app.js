@@ -46,12 +46,15 @@ jQuery(function ($) {
             console.log(data);
         },
         ytEmitted : function (data) {
-            $('.thumbnail-wrapper').empty();
-            $('.iframe-wrapper').empty();
-            $( "<iframe width='560' height='315' src='" + data[2] + "?autoplay=1'frameborder='0' gesture='media' allow='encrypted-media' allowfullscreen</iframe>" ).appendTo( ".iframe-wrapper" );
-        },
+            console.log(data);
+            console.log(App.player.myName);
+            if(data[1].myName !== App.player.myName){
+                $('.thumbnail-wrapper').empty();
+                $('.iframe-wrapper').empty();
+                $( "<iframe width='560' height='315' src='" + data[2] + "?autoplay=1'frameborder='0' gesture='media' allow='encrypted-media' allowfullscreen</iframe>" ).appendTo( ".iframe-wrapper" );
+            }
         gifEmitted : function (data) {
-
+          console.log(data);
         }
     };
 
@@ -227,8 +230,8 @@ jQuery(function ($) {
                 IO.socket.emit('uMoeder', data);
             },
             onYtSearchClick: function() {
-                $('.thumbnail-wrapper').empty();
-                $('.iframe-wrapper').empty();
+               // $('.thumbnail-wrapper').empty();
+                //$('.iframe-wrapper').empty();
                 $.get("http://localhost:3000/search/" + $('#youtube-search').val(), function(data, status){
                     console.log(data.items);
                     $.each( data.items, function( key, value ) {
@@ -297,7 +300,7 @@ jQuery(function ($) {
         $( ".thumbnail-wrapper" ).on( "click", 'img', function() {
             var $video_id = $(this).attr('id');
             $('.thumbnail-wrapper').empty();
-            $('.iframe-wrapper').empty();
+           // $('.iframe-wrapper').empty();
             App.player.onYtVideoClick("//www.youtube.com/embed/" + $video_id);
         });
     });
