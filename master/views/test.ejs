@@ -8,12 +8,22 @@
 </head>
 <body>
   <!-- Yawuar's code -->
-  <video src="" id="video" style="width: 680px; height:320px;" autoplay="true"></video>
-  <canvas id="preview"></canvas>
+  <img id="play">
   <div id="logger"></div>
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="/javascripts/app.js"></script>
+  <script src="/javascripts/socket.io-stream.js"></script>
+  <script>
+      var socket = io();
+
+      // ss(socket).on('stream', function(stream) {
+      //   console.log(stream);
+      // });
+      socket.on('stream', function(image) {
+        var img = document.getElementById('play');
+        img.src = image;
+      });
+  </script>
 </body>
 </html>
