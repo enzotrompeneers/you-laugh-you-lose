@@ -178,7 +178,8 @@ jQuery(function ($) {
 
                 // Display the URL on screen
                 $('#gameURL').text(window.location.href);
-
+                App.$gameArea.html(App.$templateJoinGame);
+                $('#inputGameId').val(App.gameId);
                 // Show the gameId / room id on screen
                 $('#spanNewGameCode').text(App.gameId);
             },
