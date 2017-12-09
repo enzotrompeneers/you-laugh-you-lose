@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
+
 var matchmakingController = require('./controllers/matchmakingController');
 var youtubeController = require('./controllers/youtubeController');
 var videoController = require('./controllers/videoController');
@@ -29,6 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
+
 
 /* GET searchterms (ajax request) */
 app.get('/search/:searchterm', function(req, res, next) {

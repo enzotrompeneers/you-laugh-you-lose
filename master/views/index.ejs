@@ -3,9 +3,28 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+      Give a keyword:<br>
+      <input id="searchValue" type="text" name="searchValue"><br>
+      <button id="searchButton" type="button">Search</button>
+
+    <ul id="sendGifList">
+    </ul>
+
+    <ul id="pis">
+    </ul>
+
+    <ul id="gifList">
+    </ul>
+    
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascript/gif.js"></script>
   </body>
 </html>
