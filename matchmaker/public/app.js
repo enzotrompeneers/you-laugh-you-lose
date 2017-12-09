@@ -349,6 +349,7 @@ jQuery(function ($) {
 
     
     socket.on('stream', function(image) {
+
         var img = document.getElementById('play');
         if(img) {
             img.src = image; 
