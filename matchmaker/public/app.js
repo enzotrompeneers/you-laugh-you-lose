@@ -1,4 +1,5 @@
 jQuery(function ($) {
+
     var IO = {
         init: function () {
             IO.socket = io.connect();
@@ -36,7 +37,7 @@ jQuery(function ($) {
             App.player.updateCountDown(data);
         },
         gameStarted : function () {
-            
+          App.player.showVideo();
         }
     };
 
@@ -72,6 +73,7 @@ jQuery(function ($) {
             App.$templateNewGame = $('#create-game-template').html();
             App.$templateJoinGame = $('#join-game-template').html();
             App.$hostGame = $('#host-game-template').html();
+            App.$startGame = $('#start-game-template').html();
         },
         showInitScreen: function () {
             App.$gameArea.html(App.$templateIntroScreen);
@@ -101,6 +103,17 @@ jQuery(function ($) {
                 }
             }
 
+        },
+        loadCam : function (stream) {
+            console.log(stream);
+            var video = document.getElementById('video');
+
+            video.src = window.URL.createObjectURL(stream);
+        },
+
+
+        loadFail : function () {
+            console.log('fail');
         },
         /**
          * ROOM
@@ -152,7 +165,7 @@ jQuery(function ($) {
 
                 // Begin the on-screen countdown timer
                 var $secondsLeft = $('#hostWord');
-                App.countDown( $secondsLeft, 5, function(){
+                App.countDown( $secondsLeft, 1, function(){
                     IO.socket.emit('hostCountdownFinished', App.gameId);
                 });
 
@@ -220,6 +233,16 @@ jQuery(function ($) {
                         .text('Joined Game ' + data.gameId + '. Please wait for game to begin.');
                 }
             },
+            showVideo : function () {
+                App.$gameArea.html(App.$startGame);
+                navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+                if(navigator.getUserMedia) {
+                    navigator.getUserMedia({video: true}, App.loadCam, App.loadFail);
+                }
+
+            },
+
         }
     };
 

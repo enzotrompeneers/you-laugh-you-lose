@@ -18,7 +18,6 @@
 <div id="gameArea">
     <!-- This is where the templates defined below will be used -->
 </div>
-
 <!-- Main Title Screen that appears when the page loads for the first time -->
 <script id="intro-screen-template" type="text/template">
 
@@ -52,7 +51,15 @@
         <div id="playersWaiting"></div>
     </div>
 </script>
-
+<!-- This screen appears when the game starts -->
+<script id="start-game-template" type="text/template">
+    <div class="startGameWrapper">
+        <h1>FUck Yeah</h1>
+        <video src="" id="video" style="width: 680px; height:320px;" autoplay="true"></video>
+        <canvas id="preview"></canvas>
+        <div id="remoteVideos"></div>
+    </div>
+</script>
 <!-- This scrreen appears when a player clicks "JOIN" on the Title Screen -->
 <script id="join-game-template" type="text/template">
     <div class="joinGameWrapper">
@@ -88,6 +95,7 @@
 </script>
 
 <script src="libs/jquery-2.0.2.min.js"></script>
+<script src="https://simplewebrtc.com/latest-v2.js"></script>
 <!-- If Socket.IO is used with Express, then the /socket.io/ path will
     serve the proper Socket.IO javascript files used by the browser -->
 <script src="/socket.io/socket.io.js"></script>
