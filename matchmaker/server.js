@@ -60,6 +60,11 @@ function playerJoinRoom(data) {
     data.mySocketId = sock.id;
     sock.join(data.gameId);
     io.sockets.in(data.gameId).emit('playerJoinedRoom', data);
+
+    var room = io.sockets.adapter.rooms[data.gameId];
+    if (room.length >= 2) {
+        hostStartGame(data.gameId);
+    }
 }
 function playerCountDown(data){
     console.log(data[1]);
