@@ -15,7 +15,6 @@ hr {
 	width: 70%;
 	height: 70%;
 	border:1px solid #f1453d;
-	content: "victim";
 }
 
 .canvas-small {
@@ -60,9 +59,12 @@ div.tab button.active {
 }
 
 .search {
-    padding:8px 15px;
-    background:rgba(50, 50, 50, 0.2);
-    border:0px solid #dbdbdb;
+    padding: 5px 15px;
+    background: rgba(50, 50, 50, 0.2);
+    border: 2px solid #f1453d;
+}
+.search:focus {
+	outline: 0;
 }
 
 .button {
@@ -74,7 +76,7 @@ div.tab button.active {
     color:#fafafa;
 }
 
-.button:hover, .arrow:hover  {
+.button:hover  {
     cursor: pointer;
 }
 
