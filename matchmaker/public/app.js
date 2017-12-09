@@ -53,8 +53,9 @@ jQuery(function ($) {
                 $('.iframe-wrapper').empty();
                 $( "<iframe width='560' height='315' src='" + data[2] + "?autoplay=1'frameborder='0' gesture='media' allow='encrypted-media' allowfullscreen</iframe>" ).appendTo( ".iframe-wrapper" );
             }
+        },
         gifEmitted : function (data) {
-          console.log(data);
+            console.log(data);
         }
     };
 
