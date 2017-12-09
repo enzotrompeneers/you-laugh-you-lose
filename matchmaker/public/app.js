@@ -15,7 +15,8 @@ jQuery(function ($) {
             IO.socket.on('beginNewGame', IO.beginNewGame );
             IO.socket.on('gameStarted', IO.gameStarted);
             IO.socket.on('playCountDown', IO.showCountDown);
-            IO.socket.on('uMoederEmitted', IO.uMoederEmitted)
+            IO.socket.on('uMoederEmitted', IO.uMoederEmitted);
+            IO.socket.on('ytEmitted', IO.ytEmitted);
         },
         onConnected: function () {
             // Cache a copy of the client's socket.IO session ID on the App
@@ -42,6 +43,10 @@ jQuery(function ($) {
         },
         uMoederEmitted : function (data) {
             console.log(data);
+        },
+        ytEmitted : function (data) {
+            $('.iframe-wrapper').empty();
+            $( "<iframe width='560' height='315' src='" + data[2] + "&autoplay=1'frameborder='0' gesture='media' allow='encrypted-media' allowfullscreen</iframe>" ).appendTo( ".iframe-wrapper" );
 
         }
     };
@@ -72,7 +77,10 @@ jQuery(function ($) {
             });
             App.$doc.on('click', '#btnuMoeder', function () {
                 App.player.onUmoederClick();
-            })
+            });
+            App.$doc.on('click', '#btnYtSearch', function () {
+                App.player.onYtSearchClick();
+            });
         },
         cacheElements: function () {
             App.$doc = $(document);
@@ -214,6 +222,21 @@ jQuery(function ($) {
                 var data = [App.gameId, App.player]
                 IO.socket.emit('uMoeder', data);
             },
+            onYtSearchClick: function() {
+                $.get("http://localhost:3000/search/" + $('#youtube-search').val(), function(data, status){
+                    console.log(data.items);
+                    $.each( data.items, function( key, value ) {
+                        $video_id = data.items[key].id.videoId;
+                        $video_thumb = data.items[key].snippet.thumbnails.medium.url;
+                        $( "<img id='"+ $video_id +"' src='" + $video_thumb + "' />" ).appendTo( ".thumbnail-wrapper" );
+                        console.log("youtube url= https://www.youtube.com/watch?v="+ $video_id + "?autoplay=1");
+                    });
+                });
+            },
+            onYtVideoClick: function(ytUri) {
+                var data = [App.gameId, App.player, ytUri]
+                IO.socket.emit('ytVideo', data);
+            },
             onPlayerStartClick: function() {
                 console.log('Player clicked "Start"');
 
@@ -263,6 +286,14 @@ jQuery(function ($) {
 
         }
     };
+
+    $(function() {
+        $( ".thumbnail-wrapper" ).on( "click", 'img', function() {
+            var $video_id = $(this).attr('id');
+            $('.thumbnail-wrapper').hide();
+            App.player.onYtVideoClick("//www.youtube.com/embed/" + $video_id);
+        });
+    });
 
     IO.init();
     App.init();

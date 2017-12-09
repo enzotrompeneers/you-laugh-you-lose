@@ -92,12 +92,14 @@
             <h1 class="w3-xxxlarge w3-text-red"><b>YouTube</b></h1>
             <hr>
             <form class="search-form" action="" method="get">
-                <input class="search" type="text" placeholder="Search..." required>
+                <input class="search" type="text" id="youtube-search" placeholder="Search..." required>
                 <span class="arrow">
-                    <button class="button" type="button">Search</button>
+                    <button class="button" type="button" id="btnYtSearch">Search</button>
                 </span>
-                
             </form>
+
+            <div class="thumbnail-wrapper"></div>
+            <div class="iframe-wrapper"></div>
 
 <!-- Main Title Screen that appears when the page loads for the first time -->
 <script id="intro-screen-template" type="text/template">

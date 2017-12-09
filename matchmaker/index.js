@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // Import the Express module
 var express = require('express');
 
@@ -24,4 +26,9 @@ io.sockets.on('connection', function (socket) {
     connectServer.initGame(io, socket);
 });
 
-
+var youtubeController = require('./controllers/youtubeController');
+app.get('/search/:searchterm', function(req, res, next) {
+    youtubeController.search(req.params.searchterm, function(result) {
+        res.json(result);
+    });
+});
