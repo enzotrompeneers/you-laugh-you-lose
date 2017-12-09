@@ -11,7 +11,7 @@
 
     var video = document.getElementById('video');
 
-    var socket = io();
+    var socket = io.connect('http://localhost:3000');
 
     function logger(msg) {
         $('#logger').text(msg);
@@ -29,7 +29,7 @@
     function viewVideo(video, context) {
         context.drawImage(video, 0, 0, context.width, context.height);
         socket.emit('stream', canvas.toDataURL('image/webp'));
-        // socket.get('msg', function(data) {
+        // socket.on('stream', function(data) {
         //     console.log(data);
         // });
     }
@@ -42,5 +42,5 @@
 
     setInterval(function() {
         viewVideo(video, context);
-    }, 1000);
+    }, 1);
 })();
